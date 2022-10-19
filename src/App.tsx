@@ -1,10 +1,16 @@
 import React from 'react';
 import './App.scss';
+import Header from "./components/Header/Header";
+import Form from "./components/Form/Form";
 
 function App() {
+
     return (
         <div className="App">
-            <h1>Hello!</h1>
+            <div className="container">
+                <Header/>
+                <Form/>
+            </div>
         </div>
     );
 }

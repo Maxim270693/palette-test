@@ -1,0 +1,12 @@
+.formInput {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+
+  .label {
+    font-size: 13px;
+    color: #EBEBF5;
+    opacity: 0.6;
+    margin-left: 10px;
+  }
+}

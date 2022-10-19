@@ -1,0 +1,52 @@
+.form {
+  .imageWrapper {
+    width: 60px;
+    margin-bottom: 30px;
+    padding: 15px 31px;
+    background: rgba(118, 118, 128, 0.24);
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .saveButton {
+    width: 343px;
+    padding: 14px 16px;
+    background: #007AFF;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 400;
+    cursor: pointer;
+    color: #fff;
+    margin-bottom: 23px;
+  }
+
+  .input {
+    max-width: 343px;
+    border-radius: 10px;
+    background: rgba(118, 118, 128, 0.24);
+    padding: 6.5px 0 7.5px 12px;
+    border: none;
+    color: #fff;
+  }
+
+  .responseBlock {
+    display: flex;
+    flex-direction: column;
+    max-width: 343px;
+
+    textarea {
+      background: rgba(118, 118, 128, 0.24);
+      border-radius: 10px;
+      border: none;
+      min-height: 120px;
+    }
+  }
+
+  .label {
+    font-size: 13px;
+    color: #EBEBF5;
+    opacity: 0.6;
+    margin-left: 10px;
+    margin-bottom: 5px;
+  }
+}
