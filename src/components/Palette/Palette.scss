@@ -1,0 +1,39 @@
+.paletteWrapper {
+
+  .colorBlock {
+    display: flex;
+    margin-left: 24px;
+    margin-bottom: 240px;
+    flex-wrap: wrap;
+    max-width: 340px;
+
+    li {
+      position: relative;
+      width: 54px;
+      height: 54px;
+      background-color: red;
+      margin-right: 25px;
+      margin-bottom: 17px;
+      border-radius: 5px;
+      list-style-type: none;
+
+      .removeIcon {
+        position: absolute;
+        top: -7px;
+        right: -7px;
+      }
+    }
+  }
+
+  .btn {
+    width: 343px;
+    padding: 14px 16px;
+    background: #007AFF;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 400;
+    cursor: pointer;
+    color: #fff;
+    margin-bottom: 23px;
+  }
+}
