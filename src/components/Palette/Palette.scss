@@ -16,11 +16,19 @@
       margin-bottom: 17px;
       border-radius: 5px;
       list-style-type: none;
+      cursor: pointer;
+
+      &:hover {
+        .removeIcon {
+          display: block;
+        }
+      }
 
       .removeIcon {
         position: absolute;
         top: -7px;
         right: -7px;
+        display: none;
       }
     }
   }

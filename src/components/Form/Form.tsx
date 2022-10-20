@@ -1,16 +1,16 @@
-import React, {FormEvent} from 'react';
+import React, {ChangeEvent, useRef, useState} from 'react';
 import './Form.scss';
 import FormInput from "../FormInput/FormInput";
 import vector from "../../image/Vector.png";
 import Button from "../Button/Button";
-
-type FormInterface = {
-    [key: string]: string
-}
+import {FormInterface} from "../../types/types";
 
 const Form = () => {
+    const [imageURL, setImageURL] = useState<{ image: string }>();
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const fileContent = useRef<HTMLInputElement>(null);
+
+    const handleSubmit = (event: any) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
 
@@ -19,6 +19,19 @@ const Form = () => {
             formObj[key] = value.toString()
         }
     }
+
+    const handlePick = () => {
+        fileContent?.current?.click();
+    }
+
+    const onImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files && event.target.files[0]) {
+            let img = event.target.files[0];
+            setImageURL({
+                image: URL.createObjectURL(img)
+            });
+        }
+    };
 
     return (
         <form onSubmit={handleSubmit} className="form">
@@ -37,11 +50,18 @@ const Form = () => {
                        label="Отчество"
                        className="input"
             />
-            <FormInput name="image"
+            <FormInput type="file"
+                       fileContent={fileContent}
                        label="Фото"
-                       className="imageWrapper"
-                       type="image"
-                       src={vector}
+                       className="hidden"
+                       accept="image/*,.png,.jpg,.gif,.web"
+                       onImageChange={onImageChange}
+            />
+
+            <img src={imageURL ? imageURL.image : vector}
+                 alt="photo"
+                 onClick={handlePick}
+                 className="imageWrapper"
             />
 
             <Button className="saveButton">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent, LegacyRef} from 'react';
 import './FormInput.scss';
 
 type FormInputType = {
@@ -8,6 +8,9 @@ type FormInputType = {
     label?: string;
     className?: string;
     src?: string;
+    fileContent?: LegacyRef<HTMLInputElement>;
+    accept?: string;
+    onImageChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const FormInput = ({
@@ -16,7 +19,10 @@ const FormInput = ({
                        name,
                        label,
                        className,
-                       src
+                       src,
+                       fileContent,
+                       accept,
+                       onImageChange,
                    }: FormInputType) => {
     return (
         <div className="formInput">
@@ -27,6 +33,9 @@ const FormInput = ({
                    name={name}
                    className={className}
                    src={src}
+                   accept={accept}
+                   ref={fileContent}
+                   onChange={onImageChange}
             />
         </div>
     );
