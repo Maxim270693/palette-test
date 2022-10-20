@@ -1,11 +1,21 @@
 import React from 'react';
 import './Header.scss';
+import {Link, useLocation} from "react-router-dom";
 
 const Header = () => {
+    const {pathname} = useLocation();
+
     return (
         <div className="header">
-            <div>Форма</div>
-            <div>Палитра</div>
+            <Link to='/' className={pathname === '/' ? "active" : "headerLink"}
+            >
+                Форма
+            </Link>
+
+            <Link to='/palette' className={pathname === '/palette' ? "active" : "headerLink"}
+            >
+                Палитра
+            </Link>
         </div>
     );
 };

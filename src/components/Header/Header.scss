@@ -1,16 +1,21 @@
 .header {
   display: flex;
-  color: #fff;
   margin-bottom: 24px;
   font-size: 17px;
   margin-left: 25px;
 
-  div {
-    border-bottom: 1px solid #fff;
+  .headerLink,
+  .active{
+    color: #fff;
     cursor: pointer;
+    text-decoration: none;
+
+    &:last-child {
+      margin-left: 38px;
+    }
   }
 
-  div:last-child {
-    margin-left: 38px;
+  .active {
+    border-bottom: 1px solid #fff;
   }
 }
