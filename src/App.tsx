@@ -4,11 +4,14 @@ import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
 import Palette from "./components/Palette/Palette";
 import {Routes, Route} from 'react-router-dom';
+import {getColorPicker} from "./bll/actions/actions";
+import {useDispatch} from "react-redux";
 
 function App() {
+    const dispatch = useDispatch();
 
     return (
-        <div className="App">
+        <div className="App" onClick={() => dispatch(getColorPicker(false))}>
             <div className="container">
                 <Header/>
                 <Routes>
