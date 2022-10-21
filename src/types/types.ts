@@ -1,6 +1,7 @@
 import {rootReducer} from "../bll/store/store";
 import {initialState} from "../bll/reducer";
 import {TypedUseSelectorHook, useSelector} from "react-redux";
+import {getColorPicker, setColor} from "../bll/actions/actions";
 
 // type null
 export type Nullable<T> = T | null;
@@ -19,4 +20,7 @@ export type InitialStateType = typeof initialState;
 export const useAppSelector: TypedUseSelectorHook<RootStateType> = useSelector;
 
 // type ActionType
-export type ActionType = any
+export type ActionType = SetColorActionType | GetColorPickerActionType;
+
+export type SetColorActionType = ReturnType<typeof setColor>;
+export type GetColorPickerActionType = ReturnType<typeof getColorPicker>;

@@ -8,12 +8,11 @@ import {setColor} from "../../bll/actions/actions";
 const ColorPicker = () => {
     const dispatch = useDispatch();
 
-    const color = useAppSelector<string>(state => state.reducer.color);
+    const color = useAppSelector<any>(state => state.reducer.color);
 
     return (
         <div>
-
-            <div style={{position: 'absolute', zIndex: '2'}}
+            <div style={{position: 'absolute', zIndex: '2', top: '270px'}}
                  onClick={(e) => e.stopPropagation()}
             >
                 <ChromePicker

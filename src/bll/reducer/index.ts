@@ -1,9 +1,10 @@
 import {ActionType, InitialStateType} from "../../types/types";
 import {COLOR, IS_SHOW_COLOR_PICKER} from "../../constants/constants";
+import {ColorResult} from "react-color";
 
 export const initialState = {
-    palette: ['1','2'],
-    color: '#fff',
+    palette: [],
+    color: '#fff' as unknown as ColorResult,
     isShowColorPicker: false,
 }
 
