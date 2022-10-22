@@ -6,6 +6,7 @@ import {batch, useDispatch} from "react-redux";
 import {getColorPicker, removeColor, setBlockColor, setColor,} from "../../bll/actions/actions";
 import {Nullable, PaletteType, useAppSelector} from "../../types/types";
 import removeIcon from "../../image/Remove.png";
+import {WHITE_COLOR} from "../../constants/constants";
 
 const Palette = () => {
     const dispatch = useDispatch();
@@ -19,12 +20,12 @@ const Palette = () => {
         const newColor = {
             id: Date.now() + Math.random(),
             title: '',
-            backGroundColor: '#fff',
+            backGroundColor: WHITE_COLOR,
         }
 
         batch(() => {
             dispatch(getColorPicker(newColor.id))
-            dispatch(setColor('#fff'))
+            dispatch(setColor(WHITE_COLOR))
             dispatch(setBlockColor([newColor]))
         })
     }

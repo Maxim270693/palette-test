@@ -32,7 +32,6 @@ const ColorPicker = () => {
     return (
         <div>
             <div ref={containerRef}
-                 style={{position: 'absolute', zIndex: '2', top: '270px'}}
                  onClick={(e) => e.stopPropagation()}
             >
                 <ChromePicker

@@ -4,13 +4,13 @@ import {
     ID_CHANGE_COLOR,
     REMOVE_COLOR,
     SET_COLOR, SET_FORM_DATA,
-    UPDATE_COLOR,
+    UPDATE_COLOR, WHITE_COLOR,
 } from "../../constants/constants";
 
 export const initialState = {
     formData: {} as FormDataType,
     palette: [] as PaletteType[],
-    color: '#fff',
+    color: WHITE_COLOR,
     idChangeColor: null as Nullable<number>,
 }
 

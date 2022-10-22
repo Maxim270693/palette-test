@@ -6,6 +6,7 @@ import Button from "../Button/Button";
 import {FormInterface, FormDataType, useAppSelector} from "../../types/types";
 import {useDispatch} from "react-redux";
 import {postFormDataTC} from "../../bll/thunk";
+import {WHITE_COLOR} from "../../constants/constants";
 
 const Form = () => {
     const dispatch = useDispatch();
@@ -83,7 +84,7 @@ const Form = () => {
                 <textarea value={formData && formData.msg ? formData?.msg : formData.status}
                           onChange={() => {
                           }}
-                          style={{color: '#fff'}}
+                          style={{color: WHITE_COLOR}}
                 />
             </div>
 
