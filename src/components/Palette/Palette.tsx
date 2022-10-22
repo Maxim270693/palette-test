@@ -1,80 +1,80 @@
-import React from 'react';
+import React, {MouseEvent} from 'react';
 import Button from "../Button/Button";
 import './Palette.scss';
 import ColorPicker from "../ColorPicker/ColorPicker";
-import {useDispatch} from "react-redux";
-import {getColorPicker} from "../../bll/actions/actions";
-import {useAppSelector} from "../../types/types";
+import {batch, useDispatch} from "react-redux";
+import {getColorPicker, removeColor, setBlockColor, setColor,} from "../../bll/actions/actions";
+import {Nullable, PaletteType, useAppSelector} from "../../types/types";
 import removeIcon from "../../image/Remove.png";
 
 const Palette = () => {
     const dispatch = useDispatch();
 
-    const isShowColorPicker = useAppSelector<boolean>(state => state.reducer.isShowColorPicker);
+    const idChangeColor = useAppSelector<Nullable<number>>(state => state.reducer.idChangeColor);
+    const palette = useAppSelector<PaletteType[]>(state => state.reducer.palette);
+
+    const onClickButtonHandler = (event: MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation();
+
+        const newColor = {
+            id: Date.now() + Math.random(),
+            title: '',
+            backGroundColor: '#fff',
+        }
+
+        batch(() => {
+            dispatch(getColorPicker(newColor.id))
+            dispatch(setColor('#fff'))
+            dispatch(setBlockColor([newColor]))
+        })
+    }
 
     return (
         <div className="paletteWrapper">
             <ul className="colorBlock">
-                <li>
-                    <img src={removeIcon}
-                         alt="removeIcon"
-                         className="removeIcon"
-                    />
-                </li>
-                <li>
-                    <img src={removeIcon}
-                         alt="removeIcon"
-                         className="removeIcon"
-                    />
-                </li>
-                <li>
-                    <img src={removeIcon}
-                         alt="removeIcon"
-                         className="removeIcon"
-                    />
-                </li>
-                <li>
-                    <img src={removeIcon}
-                         alt="removeIcon"
-                         className="removeIcon"
-                    />
-                </li>
-                <li>
-                    <img src={removeIcon}
-                         alt="removeIcon"
-                         className="removeIcon"
-                    />
-                </li>
-                <li>
-                    <img src={removeIcon}
-                         alt="removeIcon"
-                         className="removeIcon"
-                    />
-                </li>
-                <li>
-                    <img src={removeIcon}
-                         alt="removeIcon"
-                         className="removeIcon"
-                    />
-                </li>
-                <li>
-                    <img src={removeIcon}
-                         alt="removeIcon"
-                         className="removeIcon"
-                    />
-                </li>
+                {
+                    palette.map(item => {
+                        const onClickItemHandler = (event: MouseEvent<HTMLLIElement>) => {
+                            event.stopPropagation();
+                            batch(() => {
+                                dispatch(getColorPicker(item.id))
+                                dispatch(setColor(item.backGroundColor))
+                            })
+                        }
+
+                        const removeOnHandler = (id: number) => {
+                            dispatch(removeColor(id))
+                        }
+
+                        const onClickImgHandler = (event: MouseEvent<HTMLImageElement>) => {
+                            event.stopPropagation();
+                            removeOnHandler(item.id)
+                        }
+
+                        return (
+                            <li key={item.id}
+                                style={{backgroundColor: item.backGroundColor}}
+                                onClick={onClickItemHandler}
+                            >
+                                {item.title}
+
+                                <img src={removeIcon}
+                                     alt="removeIcon"
+                                     className="removeIcon"
+                                     onClick={onClickImgHandler}
+                                />
+                            </li>
+                        )
+                    })
+                }
             </ul>
 
             {
-                isShowColorPicker &&
-                <ColorPicker/>
+                idChangeColor && <ColorPicker/>
             }
 
             <Button className="btn"
-                    onClick={(event: any) => {
-                        event.stopPropagation();
-                        dispatch(getColorPicker(true))
-                    }}
+                    onClick={onClickButtonHandler}
             >
                 Добавить цвет
             </Button>

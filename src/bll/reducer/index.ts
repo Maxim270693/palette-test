@@ -1,19 +1,37 @@
-import {ActionType, InitialStateType} from "../../types/types";
-import {COLOR, IS_SHOW_COLOR_PICKER} from "../../constants/constants";
-import {ColorResult} from "react-color";
+import {ActionType, InitialStateType, PaletteType, FormDataType, Nullable} from "../../types/types";
+import {
+    COLOR,
+    ID_CHANGE_COLOR,
+    REMOVE_COLOR,
+    SET_COLOR, SET_FORM_DATA,
+    UPDATE_COLOR,
+} from "../../constants/constants";
 
 export const initialState = {
-    palette: [],
-    color: '#fff' as unknown as ColorResult,
-    isShowColorPicker: false,
+    formData: {} as FormDataType,
+    palette: [] as PaletteType[],
+    color: '#fff',
+    idChangeColor: null as Nullable<number>,
 }
 
 export const reducer = (state = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
+        case SET_FORM_DATA:
+            return {...state, formData: action.payload}
+        case SET_COLOR:
+            return {...state, palette: [...state.palette, ...action.payload]}
+        case REMOVE_COLOR:
+            return {...state, palette: state.palette.filter(item => item.id !== action.payload)}
+        case UPDATE_COLOR:
+            return {
+                ...state, palette: state.palette.map(item => {
+                    return item.id === action.id ? {...item, backGroundColor: state.color} : item
+                })
+            }
         case COLOR:
             return {...state, color: action.payload}
-        case IS_SHOW_COLOR_PICKER:
-            return {...state, isShowColorPicker: action.payload}
+        case ID_CHANGE_COLOR:
+            return {...state, idChangeColor: action.payload}
         default:
             return state;
     }

@@ -11,6 +11,7 @@ type FormInputType = {
     fileContent?: LegacyRef<HTMLInputElement>;
     accept?: string;
     onImageChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+    value?: string
 }
 
 const FormInput = ({
@@ -23,6 +24,7 @@ const FormInput = ({
                        fileContent,
                        accept,
                        onImageChange,
+                       value,
                    }: FormInputType) => {
     return (
         <div className="formInput">
@@ -36,6 +38,7 @@ const FormInput = ({
                    accept={accept}
                    ref={fileContent}
                    onChange={onImageChange}
+                   value={value}
             />
         </div>
     );

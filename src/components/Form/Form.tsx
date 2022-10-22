@@ -1,23 +1,31 @@
-import React, {ChangeEvent, useRef, useState} from 'react';
+import React, {ChangeEvent, FormEvent, useRef, useState} from 'react';
 import './Form.scss';
 import FormInput from "../FormInput/FormInput";
 import vector from "../../image/Vector.png";
 import Button from "../Button/Button";
-import {FormInterface} from "../../types/types";
+import {FormInterface, FormDataType, useAppSelector} from "../../types/types";
+import {useDispatch} from "react-redux";
+import {postFormDataTC} from "../../bll/thunk";
 
 const Form = () => {
-    const [imageURL, setImageURL] = useState<{ image: string }>();
+    const dispatch = useDispatch();
+
+    const formData = useAppSelector<FormDataType>(state => state.reducer.formData);
+    const [imageURL, setImageURL] = useState<{ image: string; file: File }>();
 
     const fileContent = useRef<HTMLInputElement>(null);
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
 
         let formObj: FormInterface = {}
         for (let [key, value] of Array.from(formData.entries())) {
-            formObj[key] = value.toString()
+            formObj[`contact[${key}]`] = value.toString()
         }
+
+        // @ts-ignore
+        dispatch(postFormDataTC('send_data', 1, imageURL?.file, formObj))
     }
 
     const handlePick = () => {
@@ -28,7 +36,8 @@ const Form = () => {
         if (event.target.files && event.target.files[0]) {
             let img = event.target.files[0];
             setImageURL({
-                image: URL.createObjectURL(img)
+                image: URL.createObjectURL(img),
+                file: img
             });
         }
     };
@@ -41,12 +50,12 @@ const Form = () => {
                        className="input"
             />
             <FormInput placeholder="Фамилия"
-                       name="lastName"
+                       name="surname"
                        label="Фамилия"
                        className="input"
             />
             <FormInput placeholder="Отчество"
-                       name="middleName"
+                       name="patronymic"
                        label="Отчество"
                        className="input"
             />
@@ -62,6 +71,7 @@ const Form = () => {
                  alt="photo"
                  onClick={handlePick}
                  className="imageWrapper"
+                 tabIndex={0}
             />
 
             <Button className="saveButton">
@@ -70,7 +80,11 @@ const Form = () => {
 
             <div className="responseBlock">
                 <label className="label">Response</label>
-                <textarea></textarea>
+                <textarea value={formData && formData.msg ? formData?.msg : formData.status}
+                          onChange={() => {
+                          }}
+                          style={{color: '#fff'}}
+                />
             </div>
 
         </form>

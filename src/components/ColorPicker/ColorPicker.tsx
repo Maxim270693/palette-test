@@ -1,24 +1,43 @@
-import React from 'react';
-import {ChromePicker} from 'react-color';
+import React, {useEffect, useRef} from 'react';
+import {ChromePicker, ColorResult} from 'react-color';
 import {useAppSelector} from "../../types/types";
-import {useDispatch} from "react-redux";
-import {setColor} from "../../bll/actions/actions";
+import {batch, useDispatch} from "react-redux";
+import {getColorPicker, setColor, updateColor} from "../../bll/actions/actions";
 
 
 const ColorPicker = () => {
     const dispatch = useDispatch();
+    const containerRef = useRef<HTMLDivElement>(null)
+    const colorId = useAppSelector(state => state.reducer.idChangeColor)
 
-    const color = useAppSelector<any>(state => state.reducer.color);
+    const color = useAppSelector<string>(state => state.reducer.color);
+
+    useEffect(() => {
+        const listener = ({target}: MouseEvent) => {
+            if (!containerRef.current?.contains(target as Node)) {
+                dispatch(getColorPicker(null))
+            }
+        }
+        window.addEventListener('click', listener)
+        return () => window.removeEventListener('click', listener)
+    }, [])
+
+    const onChangePickerHandler = (nextColor: ColorResult) => {
+        batch(() => {
+            dispatch(setColor(nextColor.hex))
+            colorId && dispatch(updateColor(colorId))
+        })
+    }
 
     return (
         <div>
-            <div style={{position: 'absolute', zIndex: '2', top: '270px'}}
+            <div ref={containerRef}
+                 style={{position: 'absolute', zIndex: '2', top: '270px'}}
                  onClick={(e) => e.stopPropagation()}
             >
                 <ChromePicker
                     color={color}
-                    onChange={(updateColor) => dispatch(setColor(updateColor))}
-
+                    onChange={onChangePickerHandler}
                 />
             </div>
         </div>
