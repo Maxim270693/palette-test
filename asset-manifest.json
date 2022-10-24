@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/palette-test/static/css/main.62f646a0.css",
+    "main.js": "/palette-test/static/js/main.e669b02a.js",
+    "static/js/787.3069935e.chunk.js": "/palette-test/static/js/787.3069935e.chunk.js",
+    "index.html": "/palette-test/index.html",
+    "main.62f646a0.css.map": "/palette-test/static/css/main.62f646a0.css.map",
+    "main.e669b02a.js.map": "/palette-test/static/js/main.e669b02a.js.map",
+    "787.3069935e.chunk.js.map": "/palette-test/static/js/787.3069935e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.62f646a0.css",
+    "static/js/main.e669b02a.js"
+  ]
+}
